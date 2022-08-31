@@ -83,6 +83,8 @@
             // 
             // backgroundCounter
             // 
+            this.backgroundCounter.WorkerReportsProgress = true;
+            this.backgroundCounter.WorkerSupportsCancellation = true;
             this.backgroundCounter.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundCounter_DoWork);
             // 
             // Form1
