@@ -15,7 +15,6 @@ namespace TestBackgroundWorker
         public Form1()
         {
             InitializeComponent();
-            Cancel_Button.Enabled = false;
 
             InitializeBackgroundWorker();
         }
@@ -35,8 +34,8 @@ namespace TestBackgroundWorker
         private void Start_Button_Click(object sender, EventArgs ea)
         {
             Start_Button.Enabled = false;
-            Cancel_Button.Enabled = true;
             backgroundCounter.RunWorkerAsync();
+            pd.ShowDialog();
         }
 
         private int counter(BackgroundWorker bw, DoWorkEventArgs ea)
@@ -51,13 +50,11 @@ namespace TestBackgroundWorker
             return result;
         }
 
-        private void Cancel_Button_Click(object sender, EventArgs ea)
+        public void Cancel()
         {
-            this.backgroundCounter.CancelAsync();
+            backgroundCounter.CancelAsync();
             Result_Label.Text = "Canceled";
-            progressBar1.Value = 0;
-            Progress_Label.Text = "Press start...";          
-            Cancel_Button.Enabled = false;
+            Progress_Label.Text = "Press start...";
             Start_Button.Enabled = true;
         }
 
@@ -86,7 +83,7 @@ namespace TestBackgroundWorker
         }
         private void backgroundCounter_ProgressChanged(object sender, ProgressChangedEventArgs e)
         {
-            progressBar1.Value = e.ProgressPercentage;
+            pd.ProgressIncrease(e.ProgressPercentage);
             Progress_Label.Text = (e.UserState).ToString();
         }
     }
