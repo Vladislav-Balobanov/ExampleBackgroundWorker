@@ -30,11 +30,8 @@ namespace TestBackgroundWorker
             int result = 21;
             for (int i = 0; i <= 10; i++)
             {
-                progressBar1.Value = (i * 10);
                 result += i;
                 System.Threading.Thread.Sleep(100);
-                Progress_Label.Text = string.Empty;
-                Progress_Label.Text = (i * 10).ToString() + " %";
             }
 
             return result;
@@ -51,7 +48,9 @@ namespace TestBackgroundWorker
 
         private void backgroundCounter_DoWork(object sender, DoWorkEventArgs ea)
         {
+            BackgroundWorker bw = sender as BackgroundWorker;
 
+            ea.Result = counter(bw, ea);
         }
 
         private void backgroundCounter_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs ea)
