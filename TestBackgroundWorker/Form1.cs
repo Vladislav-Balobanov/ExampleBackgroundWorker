@@ -18,29 +18,45 @@ namespace TestBackgroundWorker
             Cancel_Button.Enabled = false;
         }
         
-        private void Start_Button_Click(object sender, EventArgs e)
+        private void Start_Button_Click(object sender, EventArgs ea)
         {
             Start_Button.Enabled = false;
             Cancel_Button.Enabled = true;
+            backgroundCounter.RunWorkerAsync();
+        }
+
+        private int counter(BackgroundWorker bw, DoWorkEventArgs ea)
+        {
             int result = 21;
             for (int i = 0; i <= 10; i++)
             {
-                progressBar1.Value = (i*10);
+                progressBar1.Value = (i * 10);
                 result += i;
                 System.Threading.Thread.Sleep(100);
                 Progress_Label.Text = string.Empty;
                 Progress_Label.Text = (i * 10).ToString() + " %";
             }
-            Result_Label.Text = result.ToString();
+
+            return result;
         }
 
-        private void Cancel_Button_Click(object sender, EventArgs e)
+        private void Cancel_Button_Click(object sender, EventArgs ea)
         {
             Result_Label.Text = "Canceled";
             progressBar1.Value = 0;
             Progress_Label.Text = "Press start...";
             Cancel_Button.Enabled = false;
             Start_Button.Enabled = true;
+        }
+
+        private void backgroundCounter_DoWork(object sender, DoWorkEventArgs ea)
+        {
+
+        }
+
+        private void backgroundCounter_RunWorkerCompleted(object sender, RunWorkerCompletedEventArgs ea)
+        {
+
         }
     }
 }

@@ -81,6 +81,10 @@
             this.Result_Label.TabIndex = 5;
             this.Result_Label.Text = "Result will be hre...";
             // 
+            // backgroundCounter
+            // 
+            this.backgroundCounter.DoWork += new System.ComponentModel.DoWorkEventHandler(this.backgroundCounter_DoWork);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
